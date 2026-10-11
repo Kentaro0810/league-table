@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="総当たりリーグ戦の対戦カード、試合結果、順位表を管理するツール">
+  <title>リーグ戦順位表</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="app">
+  <header class="hero">
+    <div><p class="badge">LEAGUE TABLE</p><h1>リーグ戦順位表</h1><p>参加チームから総当たり戦を作成し、得点を入力すると順位を自動計算します。</p></div>
+    <a class="home" href="https://kentaro0810.github.io/secret-links/">ツール集に戻る</a>
+  </header>
+
+  <section class="setup-grid">
+    <section class="card input-card">
+      <div class="heading"><div><p class="step">STEP 1</p><h2>チームを入力</h2></div><strong id="countBadge" class="pill">0チーム</strong></div>
+      <label for="teams">1行に1チームずつ入力（3〜12チーム）</label>
+      <textarea id="teams" rows="11" placeholder="例：&#10;チームA&#10;チームB&#10;チームC&#10;チームD"></textarea>
+      <p id="inputMessage" class="message" aria-live="polite"></p>
+      <div class="buttons"><button id="sampleButton" class="secondary" type="button">6チームのサンプル</button><button id="saveButton" class="secondary" type="button">入力を保存</button><button id="clearButton" class="danger" type="button">すべて消去</button></div>
+    </section>
+
+    <section class="card settings-card">
+      <p class="step">STEP 2</p><h2>勝ち点を設定</h2>
+      <div class="points-grid">
+        <label><span>勝利</span><input id="winPoints" type="number" min="0" max="10" value="3"></label>
+        <label><span>引分</span><input id="drawPoints" type="number" min="0" max="10" value="1"></label>
+        <label><span>敗戦</span><input id="lossPoints" type="number" min="0" max="10" value="0"></label>
+      </div>
+      <label class="option"><input id="doubleRound" type="checkbox"><span><b>ホーム＆アウェイ方式</b><small>同じ相手と2回対戦します</small></span></label>
+      <div class="info"><span>順位決定順</span><strong>勝点 → 得失点差 → 得点</strong><p>すべて同じ場合はチーム名順で表示します。</p></div>
+      <button id="createButton" class="primary large" type="button">リーグ戦を作成</button>
+    </section>
+  </section>
+
+  <section id="leagueSection" class="hidden">
+    <section class="card standings-card">
+      <div class="result-header"><div><p class="step">STANDINGS</p><h2>順位表</h2><p id="progressText">試合結果を入力してください。</p></div><div class="buttons"><button id="copyButton" class="secondary" type="button">順位表をコピー</button><button id="resetScoresButton" class="secondary" type="button">得点をリセット</button></div></div>
+      <p id="copyMessage" class="success" aria-live="polite"></p>
+      <div class="table-wrap"><table><thead><tr><th>順位</th><th class="team-col">チーム</th><th>試</th><th>勝</th><th>分</th><th>敗</th><th>得</th><th>失</th><th>差</th><th>勝点</th></tr></thead><tbody id="standingsBody"></tbody></table></div>
+    </section>
+
+    <section class="card fixtures-card">
+      <div class="result-header"><div><p class="step">MATCHES</p><h2>対戦カード・結果入力</h2><p>得点を入力すると順位表へ即座に反映されます。</p></div><button id="saveLeagueButton" class="secondary" type="button">リーグを保存</button></div>
+      <div id="rounds" class="rounds"></div>
+    </section>
+  </section>
+
+  <section class="card howto"><h2>使い方</h2><ol><li>3〜12チームを1行ずつ入力します。</li><li>勝利・引分・敗戦の勝ち点と対戦方式を設定します。</li><li>試合ごとの得点を入力すると、順位表が自動更新されます。</li><li>同点時は勝点、得失点差、得点、チーム名の順で並びます。</li></ol></section>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
